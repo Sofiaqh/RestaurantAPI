@@ -5,9 +5,12 @@ using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Controllers
 {
+    [ApiController]
+    [Route("api/v1/[controller]")]
     public class ClientController : Controller
     {
         private readonly IClient _client;
+       
         public ClientController(IClient client)
         {
             _client = client;
