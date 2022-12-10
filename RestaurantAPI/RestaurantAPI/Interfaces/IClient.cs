@@ -1,14 +1,15 @@
-﻿using RestaurantAPI.Models;
+﻿using RestaurantAPI.Dto;
+using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Interfaces
 {
     public interface IClient
     {
-        void UpdateClient(Client client);
-        Client GetClient(int id);
-        void DeleteClient(int id);
-        List<Client> GetClients();
-        void PostClient(Client client);
+        void Update(Client client);
+        Client GetById(int id);
+        void DeleteById(int id);
+        List<Client> Get();
+        void Create(ClientDto client);
 
     }
 }

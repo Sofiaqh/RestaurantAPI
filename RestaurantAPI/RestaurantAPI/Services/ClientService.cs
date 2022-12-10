@@ -1,4 +1,5 @@
-﻿using RestaurantAPI.Interfaces;
+﻿using RestaurantAPI.Dto;
+using RestaurantAPI.Interfaces;
 using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Services
@@ -11,32 +12,40 @@ namespace RestaurantAPI.Services
             this._restaurantContext = restaurantContext;
         }
 
-        public void DeleteClient(int id)
+        public void DeleteById(int id)
         {
-            var client = GetClient(id);
+            var client = GetById(id);
             _restaurantContext.Clients.Remove(client);
             _restaurantContext.SaveChanges();
         }
 
 
-        public Client GetClient(int id)
+        public Client GetById(int id)
         {
             return _restaurantContext.Clients.Where(client => client.IdClient == id).FirstOrDefault();
         }
 
 
-        public List<Client> GetClients()
+        public List<Client> Get()
         {
             return _restaurantContext.Clients.ToList();
         }
 
-        public void PostClient(Client client)
+        public void Create(ClientDto client)
         {
-            _restaurantContext.Clients.Add(client);
+            var clientCreate = new Client()
+            {
+                Name = client.Name,
+                Document = client.Document,
+                Adress = client.Adress,
+                Phone = client.Phone
+            };
+
+            _restaurantContext.Clients.Add(clientCreate);
             _restaurantContext.SaveChanges();
         }
 
-        public void UpdateClient(Client client)
+        public void Update(Client client)
         {
             _restaurantContext.Clients.Update(client);
             _restaurantContext.SaveChanges();
