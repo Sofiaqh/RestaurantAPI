@@ -1,0 +1,40 @@
+CREATE DATABASE Restaurant;
+
+go
+use Restaurant
+
+CREATE TABLE Client(
+IdClient INT IDENTITY(1,1) NOT NULL,
+Name VARCHAR(50) NOT NULL,
+Document VARCHAR(25) NOT NULL,
+Phone VARCHAR (30) UNIQUE NOT NULL,
+Adress VARCHAR (50) DEFAULT 'Calle 50#22-10' NOT NULL,
+CONSTRAINT PK_Client PRIMARY KEY (IdClient)
+)
+
+CREATE TABLE Product(
+IdProduct INT IDENTITY(1,1) NOT NULL,
+Name VARCHAR(50) UNIQUE NOT NULL,
+Description VARCHAR(100) DEFAULT 'Producto sin descripcion' NOT NULL,
+CONSTRAINT PK_product PRIMARY KEY (IdProduct)
+)
+
+CREATE TABLE Orders(
+IdOrder INT IDENTITY(1,1) NOT NULL,
+OrderDate DATE NOT NULL,
+IdClient INT NOT NULL,
+Price VARCHAR(25) NOT NULL,
+CONSTRAINT PK_order PRIMARY KEY (IdOrder),
+CONSTRAINT FK_OrderClient FOREIGN KEY (IdClient) REFERENCES Client (IdClient)
+)
+
+CREATE TABLE DetailOrder(
+IdDetailOrder INT IDENTITY(1,1) NOT NULL,
+IdOrder INT NOT NULL,
+IdProduct INT NOT NULL,
+Quantity INT NOT NULL,
+Observations VARCHAR (100),
+CONSTRAINT PK_detailOrder PRIMARY KEY (IdDetailOrder),
+CONSTRAINT FK_detailOrderOrder FOREIGN KEY (IdOrder) REFERENCES Orders (IdOrder),
+CONSTRAINT FK_detailOrderProduct FOREIGN KEY (IdProduct) REFERENCES Product (IdProduct)
+)
